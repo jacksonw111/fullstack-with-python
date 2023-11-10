@@ -2,11 +2,9 @@ import axios, { type AxiosInstance, type AxiosResponse } from "axios";
 import qs from "qs";
 import { fetachUserInfo } from "./token";
 import authService from "@/utils/auth";
-import { useNavigate } from "react-router-dom";
 
 const baseURL = import.meta.env.BASE_URL;
 const requestTimeout = 6000;
-// const navigation = useNavigate();
 
 export interface HttpResponse<T = unknown> {
   status: number;

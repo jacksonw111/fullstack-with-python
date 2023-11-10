@@ -4,7 +4,6 @@ import {
   createContext,
   useContext,
   useMemo,
-  useState,
 } from "react";
 
 import authService, { LoginRequest } from "@/utils/auth";
@@ -50,10 +49,8 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
 export const RequireAuth: FC<PropsWithChildren> = ({ children }) => {
   const user = fetachUserInfo();
   const location = useLocation();
-  console.log("auth user in require====start");
-  console.log(user);
-  console.log("auth user in require====end");
 
+  // 如果找不到 user 并且不在 login 页面, 自动跳转到 login
   if (!user && location.pathname != "/login") {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }

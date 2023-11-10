@@ -19,7 +19,7 @@ export const Layout = () => {
             }}
             unmountOnExit
           >
-            {(state) => <div ref={nodeRef}>{currentOutlet}</div>}
+            {() => <div ref={nodeRef}>{currentOutlet}</div>}
           </CSSTransition>
         </SwitchTransition>
       </div>

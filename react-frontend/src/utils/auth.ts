@@ -1,34 +1,6 @@
 import axios from "axios";
 import { removeUserInfo, storeUserInfo } from "./token";
-import { useLocation, useNavigate } from "react-router-dom";
 import api from "./request";
-
-// const REREFRESH_TOEKN_URL = "/api/refresh-token";
-
-// export const refreshToken = (config: any, token_obj: any) => {
-//   const path = useLocation();
-//   const navigate = useNavigate();
-
-//   axios
-//     .put(REREFRESH_TOEKN_URL, {
-//       user_id: token_obj["user_id"],
-//       access_token: token_obj["access_token"],
-//       refresh_token: token_obj["refresh_token"],
-//     })
-//     .then((res) => {
-//       // localStorage.setItem(TOKEN, JSON.stringify(res.data))
-//       storeUserInfo(res.data);
-//       const newAccessToken = res.data["access_token"];
-//       config.headers.Authorization = `Bearer ${newAccessToken}`;
-//       return axios(config); //重新发送请求
-//     })
-//     .catch(() => {
-//       if (path.pathname != "/login") {
-//         removeUserInfo();
-//         navigate("/login");
-//       }
-//     });
-// };
 
 export interface LoginRequest {
   username: string;
@@ -60,9 +32,6 @@ class AuthService {
   }
 
   async refreshToken(config: any, token_obj: any) {
-    // const path = useLocation();
-    // const navigate = useNavigate();
-
     api
       .put(this.REREFRESH_TOEKN_URL, {
         user_id: token_obj["user_id"],
