@@ -15,10 +15,9 @@ reusable_oauth2 = OAuth2PasswordBearer(tokenUrl=f"{settings.API_STR}/token")
 
 
 class Token(BaseModel):
-    user_id: str
+    user_id: int
     access_token: str
     refresh_token: str
-    token_type: str
 
 
 class TokenPayload(BaseModel):
@@ -28,24 +27,26 @@ class TokenPayload(BaseModel):
 def get_user_by_email(db: DbSession, email: str):
     user: User = db.query(User).filter(User.email == email).one_or_none()
     if not user:
-        raise HTTPException(status_code=status, detail=f"user not found. id={id}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"user not found. email={email}",
+        )
     return user
 
 
 def get_user_by_id(db: DbSession, id: int):
     user: User = db.query(User).filter(User.id == id).one_or_none()
     if not user:
-        raise HTTPException(status_code=status, detail=f"user not found. id={id}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail=f"user not found. id={id}"
+        )
     return user
 
 
 def get_current_user_by_token(token: str, secret_key: str, db: DbSession):
     try:
-        logger.info(f"token: {token}")
         payload = jwt.decode(token, secret_key, algorithms=[settings.JWT_ALG])
-        logger.info(f"payload: {payload}")
         token_data = TokenPayload(**payload)
-        logger.info(f"token_data: {token_data}")
     except (JWTError, ValidationError) as e:
         logger.error(e)
         raise HTTPException(
@@ -82,7 +83,11 @@ def new_token(user: User):
     new_refresh_token = user.refresh_token
     redis_service.instance.set_value(str(user.id) + "_REFRESH_TOKEN", new_refresh_token)
     redis_service.instance.set_value(str(user.id) + "_ACCESS_TOKEN", new_access_token)
-    return {"access_token": new_access_token, "refresh_token": new_refresh_token}
+    return {
+        "user_id": user.id,
+        "access_token": new_access_token,
+        "refresh_token": new_refresh_token,
+    }
 
 
 def get_access_token(user_id: str):

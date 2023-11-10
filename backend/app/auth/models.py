@@ -47,7 +47,7 @@ class User(Base, TimeStampMixin):
     @property
     def access_token(self):
         now = datetime.now()
-        exp = now + timedelta(minutes=settings.ACCESS_TOKEN_EXP)
+        exp = (now + timedelta(minutes=settings.ACCESS_TOKEN_EXP)).timestamp()
         data = {"exp": exp, "sub": str(self.id)}
         logger.info(f"exp: {exp}")
         return jwt.encode(
@@ -57,7 +57,7 @@ class User(Base, TimeStampMixin):
     @property
     def refresh_token(self):
         now = datetime.now()
-        exp = now + timedelta(days=settings.REFRESH_TOKEN_EXP)
+        exp = (now + timedelta(days=settings.REFRESH_TOKEN_EXP)).timestamp()
         data = {"exp": exp, "sub": str(self.id)}
         return jwt.encode(
             data, settings.REFRESH_TOKEN_SECRET, algorithm=settings.JWT_ALG

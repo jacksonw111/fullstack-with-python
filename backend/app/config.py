@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     REDIS_URL: str
 
     # auth
-    ACCESS_TOKEN_EXP: int = 10  # 10 minutes
+    ACCESS_TOKEN_EXP: int = 1  # 10 minutes
     REFRESH_TOKEN_EXP: int = 7  # 7 days
     ACCESS_TOKEN_SECRET: str
     REFRESH_TOKEN_SECRET: str

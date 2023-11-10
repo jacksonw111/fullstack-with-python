@@ -69,31 +69,3 @@ class MyLogger:
         app_fh.setFormatter(formatter)
         app_logger.addHandler(app_fh)
         return app_logger
-
-
-# logger = MyLogger.getLogger("AppLogger")
-
-
-# def log(func):
-#     @wraps(func)
-#     def wrapper(*args, **kwargs):
-#         start = 1000 * time.time()
-#         logger.info(
-#             f"=============  Begin: {logger.name} : {func.__name__}  ============="
-#         )
-#         logger.info(f"Args: {kwargs}")
-#         try:
-#             rsp = func(*args, **kwargs)
-#             logger.info(f"Response: {rsp}")
-#             end = 1000 * time.time()
-#             logger.info(f"Time consuming: {end - start}ms")
-#             logger.info(f"=============   End: {func.__name__}   =============\n")
-#             return rsp
-#         except Exception as e:
-#             logger.error(repr(e))
-#             end = 1000 * time.time()
-#             logger.info(f"Time consuming: {end - start}ms")
-#             logger.info(f"=============   End: {func.__name__}   =============\n")
-#             raise e
-
-#     return wrapper

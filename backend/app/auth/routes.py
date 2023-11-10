@@ -44,18 +44,18 @@ async def refresh_token(db: DbSession, request: Token):
     1. redis 需要存在这个 token
     2. 这个 token 要能够解密
     """
-    refresh_token = get_refresh_token(request.user_id)
-    old_access_token = get_access_token(request.user_id)
+    refresh_token = get_refresh_token(str(request.user_id))
+    old_access_token = get_access_token(str(request.user_id))
 
     if old_access_token != request.access_token:
         raise HTTPException(
-            status_code=401,
+            status_code=status.HTTP_404_NOT_FOUND,
             detail=f"access token not found. token={request.access_token}",
         )
 
     if refresh_token != request.refresh_token:
         raise HTTPException(
-            status_code=401,
+            status_code=status.HTTP_404_NOT_FOUND,
             detail=f"refresh token not found. token={request.refresh_token}",
         )
 
