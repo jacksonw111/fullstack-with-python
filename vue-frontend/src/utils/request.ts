@@ -1,11 +1,10 @@
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios'
 import qs from 'qs'
 import router from '@/router'
-import { fetachUserInfo, removeUserInfo, storeUserInfo } from './token'
-
+import { fetachUserInfo } from './token'
+import authService from './auth'
 const baseURL = import.meta.env.BASE_URL
 const requestTimeout = 6000
-const REREFRESH_TOEKN_URL = '/api/refresh-token'
 
 export interface HttpResponse<T = unknown> {
   status: number
@@ -21,28 +20,6 @@ const api: AxiosInstance = axios.create({
     'Content-Type': 'application/json'
   }
 })
-
-function refreshToken(config: any, token_obj: any) {
-  axios
-    .put(REREFRESH_TOEKN_URL, {
-      user_id: token_obj['user_id'],
-      access_token: token_obj['access_token'],
-      refresh_token: token_obj['refresh_token']
-    })
-    .then((res) => {
-      // localStorage.setItem(TOKEN, JSON.stringify(res.data))
-      storeUserInfo(res.data)
-      const newAccessToken = res.data['access_token']
-      config.headers.Authorization = `Bearer ${newAccessToken}`
-      return axios(config) //重新发送请求
-    })
-    .catch(() => {
-      if (router.currentRoute.value.name != 'login') {
-        removeUserInfo()
-        router.push({ name: 'login' })
-      }
-    })
-}
 
 api.interceptors.request.use(
   (config) => {
@@ -72,17 +49,17 @@ api.interceptors.response.use(
   },
   (error: any) => {
     const { config } = error
-    console.error('error1111')
-    if (error.response.status == 401) {
+    if (error.response.status == 401 && router.currentRoute.value.name != 'login') {
       console.error('401')
       const token = fetachUserInfo()
       if (token) {
         const token_obj = JSON.parse(token)
-        refreshToken(config, token_obj)
+        authService.refreshToken(config, token_obj)
       } else {
         router.push({ name: 'login' })
       }
     }
+    console.log(error)
     return Promise.reject(error)
   }
 )

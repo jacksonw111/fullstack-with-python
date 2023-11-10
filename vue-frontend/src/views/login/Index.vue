@@ -32,16 +32,17 @@
       </a-form-item>
 
       <a-form-item :wrapper-col="{ offset: 6, span: 16 }">
-        <a-button type="primary" html-type="submit">Submit</a-button>
+        <a-button type="primary" html-type="submit" class="login-form-submit-btn">Submit</a-button>
       </a-form-item>
     </a-form>
   </div>
 </template>
 <script lang="ts" setup>
 import { reactive } from 'vue'
-import authService from '@/api/auth'
+import authService from '@/utils/auth'
 import { storeUserInfo } from '@/utils/token'
 import { useRouter } from 'vue-router'
+import { message } from 'ant-design-vue'
 interface FormState {
   username: string
   password: string
@@ -57,10 +58,13 @@ const router = useRouter()
 
 const onFinish = (values: any) => {
   console.log('Success:', values)
-  authService.getUserInfo(values).then((res) => {
-    storeUserInfo(res)
-    router.push({ name: 'dashboard' })
-  })
+  authService
+    .getUserInfo(values)
+    .then((res) => {
+      storeUserInfo(res)
+      router.push({ name: 'dashboard' })
+    })
+    .catch((err) => message.error(err.message))
 }
 
 const onFinishFailed = (errorInfo: any) => {
@@ -77,13 +81,19 @@ const onFinishFailed = (errorInfo: any) => {
   background-repeat: no-repeat;
   background-image: url(@/assets/login.jpg);
   overflow: auto;
+  position: relative;
 }
 .login-form {
+  position: absolute;
+  top: 30%;
+  right: 20%;
+  color: azure;
   width: 30vw;
   height: 40vh;
   margin: auto;
-  padding-top: 230px;
+  /* padding-top: 230px; */
 }
+
 .login-title {
   width: 100%;
   font-size: 1.5rem;
@@ -91,5 +101,10 @@ const onFinishFailed = (errorInfo: any) => {
   text-align: center;
   padding: 1rem;
   margin: 0 auto;
+}
+
+.login-form-submit-btn:hover {
+  animation: pulse 0.5s ease-in;
+  animation-iteration-count: infinite;
 }
 </style>

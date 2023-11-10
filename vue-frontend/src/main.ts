@@ -7,6 +7,7 @@ import App from './App.vue'
 import router from './router'
 import 'ant-design-vue/dist/reset.css'
 import Antd from 'ant-design-vue'
+import 'animate.css'
 
 const app = createApp(App)
 

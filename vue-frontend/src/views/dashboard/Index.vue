@@ -7,5 +7,15 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div>dashbaord</div>
+  <div>
+    <router-link to="404">404</router-link>
+  </div>
 </template>
+<style scoped>
+div {
+  width: 50vw;
+  height: 50vh;
+  background: red;
+  margin: auto;
+}
+</style>
