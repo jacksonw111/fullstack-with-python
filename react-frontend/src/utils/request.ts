@@ -50,7 +50,9 @@ api.interceptors.response.use(
   },
   (error: any) => {
     const { config } = error;
+    console.log(error)
     if (error.response.status === 401) {
+      console.log("发现401 重新请求")
       const token = fetachUserInfo();
       if (token) {
         const token_obj = token;

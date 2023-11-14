@@ -9,6 +9,7 @@ export interface UserResponse {
   id: string;
   name: string;
   email: string;
+  is_active: boolean;
 }
 
 export interface QueryUserResponse {
