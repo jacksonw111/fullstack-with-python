@@ -1,6 +1,7 @@
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import { useLocation, useOutlet } from "react-router-dom";
 import { createRef } from "react";
+
 export const Layout = () => {
   const currentOutlet = useOutlet();
   const location = useLocation();

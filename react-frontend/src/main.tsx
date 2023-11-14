@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "animate.css";
 import { BrowserRouter } from "react-router-dom";
@@ -13,7 +13,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <AppContextProvider>
         <AuthContextProvider>
-          <App />
+          <Suspense fallback={<div>加载中……</div>}>
+            <App />
+          </Suspense>
         </AuthContextProvider>
       </AppContextProvider>
     </BrowserRouter>

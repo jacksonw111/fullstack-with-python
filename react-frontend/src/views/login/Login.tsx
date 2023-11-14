@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthContext } from "@/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   username: z
@@ -29,9 +29,13 @@ const formSchema = z.object({
     .trim(),
 });
 
-export const Login = () => {
+const Login = () => {
   const auth = useAuthContext();
   const navigate = useNavigate();
+  
+  if (auth.authenticated()) {
+    return <Navigate to="/dashboard" />;
+  }
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -89,3 +93,4 @@ export const Login = () => {
     </div>
   );
 };
+export default Login;

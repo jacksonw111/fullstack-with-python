@@ -11,6 +11,7 @@ import { fetachUserInfo, removeUserInfo, storeUserInfo } from "@/utils/token";
 import { Navigate, useLocation } from "react-router-dom";
 
 interface AuthContextType {
+  authenticated: () => boolean;
   signin: (user: LoginRequest, callback: VoidFunction) => void;
   signout: (callback: VoidFunction) => void;
 }
@@ -19,6 +20,11 @@ export const AuthContext = createContext({} as AuthContextType);
 export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
+  const authenticated = () => {
+    const user = fetachUserInfo();
+    if (user) return true;
+    else return false;
+  };
   const signin = (request: LoginRequest, callback: VoidFunction) => {
     authService
       .getTokenInfo(request)
@@ -38,6 +44,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const value = useMemo(
     () => ({
+      authenticated,
       signin,
       signout,
     }),
@@ -47,11 +54,11 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
 };
 
 export const RequireAuth: FC<PropsWithChildren> = ({ children }) => {
-  const user = fetachUserInfo();
+  const auth = useAuthContext();
   const location = useLocation();
 
   // 如果找不到 user 并且不在 login 页面, 自动跳转到 login
-  if (!user && location.pathname != "/login") {
+  if (!auth.authenticated() && location.pathname != "/login") {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
