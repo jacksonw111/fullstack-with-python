@@ -7,13 +7,13 @@ from app.auth.service import (
     get_access_token,
     get_current_user,
     get_refresh_token,
-    get_user_by_email,
     get_user_from_refresh_token,
     new_token,
 )
 
 from app.database.core import DbSession
 from app.services import redis_service
+from app.user import services as user_service
 
 api_router = APIRouter()
 
@@ -30,7 +30,10 @@ async def register(db: DbSession, request: RegisterRequest):
 
 @api_router.api_route("/token", methods=["POST"])
 async def get_token(db: DbSession, form_data: OAuth2PasswordRequestForm = Depends()):
-    user: User = get_user_by_email(db=db, email=form_data.username)
+    user: User = user_service.instance.get_user_by_email(
+        db=db, email=form_data.username
+    )
+
     if user.check_password(form_data.password):
         return new_token(user)
     raise HTTPException(

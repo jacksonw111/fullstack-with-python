@@ -9,6 +9,7 @@ from app.config import settings
 from app.database.core import DbSession
 from app.logging import MyLogger
 from app.services import redis_service
+from app.user import services as user_service
 
 logger = MyLogger.getLogger(__name__)
 reusable_oauth2 = OAuth2PasswordBearer(tokenUrl=f"{settings.API_STR}/token")
@@ -24,25 +25,6 @@ class TokenPayload(BaseModel):
     sub: Optional[int] = None
 
 
-def get_user_by_email(db: DbSession, email: str):
-    user: User = db.query(User).filter(User.email == email).one_or_none()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=f"user not found. email={email}",
-        )
-    return user
-
-
-def get_user_by_id(db: DbSession, id: int):
-    user: User = db.query(User).filter(User.id == id).one_or_none()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail=f"user not found. id={id}"
-        )
-    return user
-
-
 def get_current_user_by_token(token: str, secret_key: str, db: DbSession):
     try:
         payload = jwt.decode(token, secret_key, algorithms=[settings.JWT_ALG])
@@ -54,14 +36,8 @@ def get_current_user_by_token(token: str, secret_key: str, db: DbSession):
             detail="validate token error. expired",
         )
 
-    user = db.query(User).filter(User.id == int(token_data.sub)).first()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="auth failed. User not found",
-        )
-
-    return user
+    # user = db.query(User).filter(User.id == int(token_data.sub)).first()
+    return user_service.instance.get_user_by_id(user_id=int(token_data.sub), db=db)
 
 
 def get_current_user(db: DbSession, token: str = Depends(reusable_oauth2)) -> User:

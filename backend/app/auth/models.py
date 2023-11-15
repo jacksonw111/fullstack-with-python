@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import secrets
 import string
 from jose import jwt
-from sqlalchemy import Column, Integer, LargeBinary, String
+from sqlalchemy import Boolean, Column, Integer, LargeBinary, String
 import bcrypt
 
 
@@ -40,6 +40,7 @@ class User(Base, TimeStampMixin):
     email = Column(String, unique=True)
     name = Column(String(120), nullable=False, index=True)
     password = Column(LargeBinary, nullable=False)
+    is_active = Column(Boolean, nullable=False, default=True)
 
     def check_password(self, password):
         return bcrypt.checkpw(password.encode("utf-8"), self.password)

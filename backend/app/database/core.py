@@ -43,7 +43,7 @@ class CustomBase:
 
     @declared_attr
     def __tablename__(self):
-        return resolve_table_name(self.__name__)
+        return resolve_table_name(self.__name__) + "s"
 
     def dict(self):
         """Returns a dict representation of a model."""
