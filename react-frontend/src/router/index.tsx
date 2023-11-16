@@ -5,6 +5,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { lazy } from "react";
 import { UserListView } from "@/views/user/UserListView";
 import { SettingsView } from "@/views/settings/SettingsView";
+import { NotFound } from "@/views/error/NotFound";
 export const lazyLoad = (moduleName: string) => {
   const Module = lazy(() => import(moduleName));
   return <Module />;
@@ -59,6 +60,6 @@ export const routes = createBrowserRouter([
   },
   {
     path: "*",
-    element: lazyLoad("error/NotFound"),
+    element: <NotFound />,
   },
 ]);

@@ -44,6 +44,7 @@ export const LayoutSidebar = () => {
             </span>
           </div>
         </div>
+
         <BiChevronRight
           className={classNames(
             "bg-indigo-700 shadow-2xl translate-y-2/3 text-gray-50 rounded-xl text-2xl cursor-pointer transition-all duration-300 ease-in absolute top-3 -right-6 z-100",
@@ -51,6 +52,7 @@ export const LayoutSidebar = () => {
           )}
           onClick={toggle}
         />
+        
       </header>
       <div className="mt-3 w-full overflow-auto grow">
         <div className="w-full h-full">

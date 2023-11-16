@@ -22,6 +22,10 @@ class UserService {
     const { data } = await api.get(this.url, { params });
     return data;
   }
+
+  async del(id: number) {
+    await api.delete(`${this.url}/${id}`);
+  }
 }
 
 export default new UserService();

@@ -62,7 +62,7 @@ const CollapsedSubMenu = ({ menu }: { menu: MenuProps }) => {
                     to={menu.path}
                     className={({ isActive }) =>
                       classNames(
-                        "flex items-center justify-start gap-2 w-full px-6 py-2.5 hover:bg-gray-300 rounded-lg cursor-pointer ",
+                        "flex items-center justify-start gap-2 w-full px-6 py-2.5 hover:bg-gray-300 rounded-lg cursor-pointer",
                         isActive && "text-indigo-700"
                       )
                     }
@@ -91,7 +91,7 @@ export const MenuWithSubItem = ({ menu }: { menu: MenuProps }) => {
     <div className="flex flex-col gap-2 w-full">
       <div
         className={classNames(
-          "flex items-center justify-start pl-6 pr-1 py-2.5 gap-2 text-lg w-full hover:bg-gray-300 rounded-lg cursor-pointer",
+          "flex items-center justify-start pl-6 pr-1 py-2.5 gap-2 w-full hover:bg-gray-300 rounded-lg cursor-pointer",
           collapse && "justify-center",
           !expand && isActive(menu)
         )}
@@ -100,11 +100,11 @@ export const MenuWithSubItem = ({ menu }: { menu: MenuProps }) => {
         <span>{menu.icon}</span>
         <div
           className={classNames(
-            "flex items-center grow justify-center w-full  ",
+            "flex items-center grow justify-center w-full",
             collapse && "hidden"
           )}
         >
-          <span className={classNames("grow")}>{menu.name}</span>
+          <span className={classNames("grow pl-1")}>{menu.name}</span>
           <span>
             <BiChevronUp
               className={classNames(

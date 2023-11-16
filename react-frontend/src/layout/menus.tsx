@@ -18,7 +18,27 @@ export const menus = [
     icon: <BiUser />,
   },
   {
-    name: "Settings",
+    name: "User",
+    path: "/user",
+    icon: <BiUser />,
+  },
+  {
+    name: "User",
+    path: "/user",
+    icon: <BiUser />,
+  },
+  {
+    name: "User",
+    path: "/user",
+    icon: <BiUser />,
+  },
+  {
+    name: "User",
+    path: "/user",
+    icon: <BiUser />,
+  },
+  {
+    name: "Users",
     path: "/settings",
     icon: <BiCog />,
     children: [
