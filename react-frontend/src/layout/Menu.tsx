@@ -88,10 +88,10 @@ export const MenuWithSubItem = ({ menu }: { menu: MenuProps }) => {
   if (collapse) return <CollapsedSubMenu menu={menu} />;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full">
       <div
         className={classNames(
-          "flex items-center justify-start gap-2 text-lg  w-full px-6 py-2.5 hover:bg-gray-300 rounded-lg cursor-pointer",
+          "flex items-center justify-start pl-6 pr-1 py-2.5 gap-2 text-lg w-full hover:bg-gray-300 rounded-lg cursor-pointer",
           collapse && "justify-center",
           !expand && isActive(menu)
         )}
@@ -100,7 +100,7 @@ export const MenuWithSubItem = ({ menu }: { menu: MenuProps }) => {
         <span>{menu.icon}</span>
         <div
           className={classNames(
-            "flex items-center grow justify-center",
+            "flex items-center grow justify-center w-full  ",
             collapse && "hidden"
           )}
         >

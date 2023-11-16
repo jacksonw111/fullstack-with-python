@@ -1,5 +1,5 @@
 export const SettingsView = () => {
   return (
-    <div>SettingsView</div>
+    <div className=" w-full h-screen">SettingsView</div>
   )
 }

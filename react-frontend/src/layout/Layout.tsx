@@ -6,7 +6,7 @@ export const Layout = () => {
   return (
     <div className="w-screen h-screen flex">
       <LayoutSidebar />
-      <div className="w-full h-screen overflow-auto">
+      <div className="w-full h-screen overflow-hidden">
         <LayoutHeader />
         <div className="w-full h-full p-3 overflow-auto">
           <LayoutContent />

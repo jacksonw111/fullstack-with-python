@@ -1,7 +1,7 @@
-import { FC, PropsWithChildren, useRef, useState } from "react";
+import { ComponentProps, FC, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 
-export const Fade: FC<PropsWithChildren> = ({ children }) => {
+export const Fade: FC<ComponentProps<"div">> = ({ className, children }) => {
   const [expand, setExpand] = useState(false);
   const nodeRef = useRef(null);
   return (
@@ -18,7 +18,9 @@ export const Fade: FC<PropsWithChildren> = ({ children }) => {
       mountOnEnter
       unmountOnExit
     >
-      <div ref={nodeRef}>{children}</div>
+      <div ref={nodeRef} className={className}>
+        {children}
+      </div>
     </CSSTransition>
   );
 };

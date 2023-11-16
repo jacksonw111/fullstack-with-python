@@ -54,9 +54,9 @@ export const LayoutSidebar = () => {
       </header>
       <div className="mt-3 w-full overflow-auto grow">
         <div className="w-full h-full">
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-2 w-full">
             {menus.map((menu) => (
-              <li key={menu.path} className="">
+              <li key={menu.path} className="w-full">
                 {menu.children ? (
                   <MenuWithSubItem menu={menu} />
                 ) : (
