@@ -1,13 +1,12 @@
-import { useRoutes } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import { routes } from "./router";
 import { Toaster } from "./components/ui/toaster";
 
 function App() {
-  const constant_routes = useRoutes(routes);
   return (
     <>
-      {constant_routes}
+      <RouterProvider router={routes} />
       <Toaster />
     </>
   );

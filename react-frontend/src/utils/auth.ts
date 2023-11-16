@@ -49,6 +49,7 @@ class AuthService {
         if (error.response.status !== 404) removeUserInfo();
       });
   }
+  
   async logout(): Promise<void> {
     await api.delete(this.logoutUrl);
   }

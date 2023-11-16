@@ -1,8 +1,9 @@
-import { QueryUserResponse } from "@/api/user";
 import { useEffect, useMemo, useState } from "react";
+import { PaginationState } from "@tanstack/react-table";
+
+import { QueryUserResponse } from "@/api/user";
 import userService from "@/api/user";
 import UserList from "./components/UserList";
-import { PaginationState } from "@tanstack/react-table";
 
 export const UserListView = () => {
   const [loading, setLoading] = useState(false);
@@ -33,14 +34,13 @@ export const UserListView = () => {
         setResponse(res);
         setLoading(false);
       })
-      .catch((e) => {
-        console.log(e);
+      .catch(() => {
         setLoading(false);
       });
   }, [pagination]);
 
   return (
-    <div className="w-2/3 h-full bg-gray-50 shadow-lg p-3 m-auto">
+    <div>
       <UserList
         users={response.users}
         isLoading={loading}

@@ -6,7 +6,8 @@ export const Dashboard = () => {
     service.testProtect();
   }, []);
   return (
-    <div className="w-56 h-56 bg-slate-600 text-gray-50 border border-gray-600 ">
+    <div className="w-full h-screen  text-gray-400 border rounded-lg">
+      ssss
       <NavLink to="/user">user</NavLink>
     </div>
   );
