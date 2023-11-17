@@ -1,5 +1,12 @@
 import { ReactNode } from "react";
-import { BiCog, BiSolidDashboard, BiUser } from "react-icons/bi";
+import {
+  BiCog,
+  BiEdit,
+  BiSolidDashboard,
+  BiUpload,
+  BiUser,
+  BiVideo,
+} from "react-icons/bi";
 export interface MenuProps {
   name: string;
   path: string;
@@ -12,10 +19,21 @@ export const menus = [
     path: "/dashboard",
     icon: <BiSolidDashboard />,
   },
+
   {
-    name: "User",
-    path: "/user",
-    icon: <BiUser />,
+    name: "Editor",
+    path: "/editor",
+    icon: <BiEdit />,
+  },
+  {
+    name: "Video",
+    path: "/video",
+    icon: <BiVideo />,
+  },
+  {
+    name: "Upload",
+    path: "/upload",
+    icon: <BiUpload />,
   },
   {
     name: "User",
@@ -23,22 +41,7 @@ export const menus = [
     icon: <BiUser />,
   },
   {
-    name: "User",
-    path: "/user",
-    icon: <BiUser />,
-  },
-  {
-    name: "User",
-    path: "/user",
-    icon: <BiUser />,
-  },
-  {
-    name: "User",
-    path: "/user",
-    icon: <BiUser />,
-  },
-  {
-    name: "Users",
+    name: "settings",
     path: "/settings",
     icon: <BiCog />,
     children: [
@@ -63,10 +66,5 @@ export const menus = [
         icon: <BiSolidDashboard />,
       },
     ],
-  },
-  {
-    name: "User2",
-    path: "/user2",
-    icon: <BiUser />,
   },
 ];

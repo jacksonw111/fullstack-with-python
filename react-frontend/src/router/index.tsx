@@ -6,6 +6,9 @@ import { lazy } from "react";
 import { UserListView } from "@/views/user/UserListView";
 import { SettingsView } from "@/views/settings/SettingsView";
 import { NotFound } from "@/views/error/NotFound";
+import { Video } from "@/views/video/Video";
+import { Editor } from "@/views/editor/Editor";
+import { Upload } from "@/views/upload/Upload";
 export const lazyLoad = (moduleName: string) => {
   const Module = lazy(() => import(moduleName));
   return <Module />;
@@ -36,6 +39,30 @@ export const routes = createBrowserRouter([
         element: (
           <RequireAuth>
             <UserListView />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: "video",
+        element: (
+          <RequireAuth>
+            <Video />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: "editor",
+        element: (
+          <RequireAuth>
+            <Editor />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: "upload",
+        element: (
+          <RequireAuth>
+            <Upload />
           </RequireAuth>
         ),
       },

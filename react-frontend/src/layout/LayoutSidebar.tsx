@@ -69,7 +69,7 @@ export const LayoutSidebar = () => {
           </ul>
         </div>
       </div>
-      <div className="mb-10 self-center">
+      <div className="mb-5 self-center">
         <div className="flex items-center space-x-2">
           <Switch
             id="airplane-mode"

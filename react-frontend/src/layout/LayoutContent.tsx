@@ -20,7 +20,7 @@ export const LayoutContent = () => {
           unmountOnExit
         >
           {() => (
-            <div className="w-full h-full " ref={nodeRef}>
+            <div className="w-full h-full" ref={nodeRef}>
               {currentOutlet}
             </div>
           )}
